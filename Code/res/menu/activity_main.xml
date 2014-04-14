@@ -4,6 +4,15 @@
         android:id="@+id/menu_settings"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/menu_settings"/>
-
+        android:title="Configuracion"/>
+	<item
+        android:id="@+id/menu_alarma"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Alarmas"/>
+	<item
+        android:id="@+id/menu_salir"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Salir"/>
 </menu>

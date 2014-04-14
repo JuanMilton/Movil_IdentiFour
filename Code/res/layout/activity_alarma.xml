@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="onIngresar"
     android:orientation="vertical" >
 
     <Button
@@ -11,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="onGuardar"
+        android:onClick="onAlertar"
         android:text="Alertar" />
 
     <LinearLayout
@@ -32,32 +31,31 @@
             android:text="Lanzar Alarma"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <RadioGroup
-            android:id="@+id/radioGroup1"
-            android:layout_width="wrap_content"
+        <RadioButton
+            android:id="@+id/alarma_rb_cerrar_trancas_en_esta_area"
+            android:layout_width="319dp"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Cerrar Trancas en esta area" />
+
+        <RadioButton
+            android:id="@+id/alarma_rb_cerrar_todas_trancas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cerrar todas las Trancas" />
+
+        <RadioButton
+            android:id="@+id/alarma_rb_me_atacaron"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Me agredieron o asaltaron" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/TextView01" >
-
-            <RadioButton
-                android:id="@+id/alarma_rb_cerrar_trancas_en_esta_area"
-                android:layout_width="319dp"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Cerrar Trancas en esta area" />
-
-            <RadioButton
-                android:id="@+id/alarma_rb_cerrar_todas_trancas"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cerrar todas las Trancas" />
-
-            <RadioButton
-                android:id="@+id/alarma_rb_me_atacaron"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Me agredieron o asaltaron" />
+            android:orientation="horizontal" >
 
             <RadioButton
                 android:id="@+id/alarma_rb_otro"
@@ -66,15 +64,11 @@
 
             <EditText
                 android:id="@+id/alarma_ed_otro"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="29dp"
-                android:layout_marginTop="38dp"
-                android:layout_weight="1"
                 android:ems="10"
                 android:hint="Otro problema" />
-
-        </RadioGroup>
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

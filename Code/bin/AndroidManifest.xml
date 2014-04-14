@@ -25,6 +25,8 @@
         <activity android:name="firstone.identi_four.movil.presentacion.HistorialActivity"></activity>
         <activity android:name="firstone.identi_four.movil.presentacion.AlarmaActivity"></activity>
         <activity android:name="firstone.identi_four.movil.presentacion.SettingsActivity"></activity>
+        <activity android:name="firstone.identi_four.movil.service.ServiceTestActivity"></activity>
+        <service android:name="firstone.identi_four.movil.service.Servicio" />
     </application>
 
 </manifest>

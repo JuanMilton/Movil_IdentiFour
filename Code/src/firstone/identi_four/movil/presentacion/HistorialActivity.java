@@ -5,15 +5,20 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import firstone.identi_four.movil.model.Historial;
+import firstone.identi_four.movil.service.ServiceTestActivity;
 
 public class HistorialActivity extends Activity {
 
@@ -23,6 +28,9 @@ public class HistorialActivity extends Activity {
 	List<Historial> historiales;
 	String CI = "";
 	
+	public SharedPreferences preferences;
+	public SharedPreferences.Editor editor;
+	
 	// begin_region
 		TableLayout tl;
 	// end_region
@@ -30,10 +38,13 @@ public class HistorialActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_historial);
         
         Bundle b = getIntent().getExtras();
         CI = b.getString("ci");
+        
+        preferences = this.getSharedPreferences(SettingsActivity.PREF_KEY, MODE_PRIVATE);
+		editor = preferences.edit();
         
         cargarListaHistoriales();
         InitializeComponent();
@@ -132,11 +143,39 @@ public class HistorialActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
-        
         return true;
     }
     
-    private void cargarListaHistoriales()
+    
+    
+    @Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    	Intent i = null;
+    	switch (item.getItemId()) {
+		case R.id.menu_alarma:
+			i = new Intent(this,AlarmaActivity.class);
+			break;
+		case R.id.menu_settings:
+//			i = new Intent(this,SettingsActivity.class);
+			i = new Intent(this,ServiceTestActivity.class);
+			break;
+		case R.id.menu_salir:
+			editor.putString(SettingsActivity.USER_KEY, "");
+			editor.commit();
+			
+			i = new Intent(this,MainActivity.class);
+			i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			this.finish();
+			startActivity(i);
+			break;
+		}
+    	i.putExtra("ci", CI);
+		startActivity(i);
+		return super.onMenuItemSelected(featureId, item);
+	}
+
+
+	private void cargarListaHistoriales()
     {
     	historiales = new ArrayList<Historial>();
     	Historial h1 = new Historial();
