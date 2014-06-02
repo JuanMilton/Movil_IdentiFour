@@ -1,14 +1,19 @@
 package firstone.identi_four.movil.presentacion;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,16 +22,25 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import firstone.identi_four.ccs.Accion;
 import firstone.identi_four.movil.model.Historial;
 import firstone.identi_four.movil.service.ServiceTestActivity;
+import firstone.identi_four.movil.service.Servicio;
+import firstone.serializable.Alarma;
+import firstone.serializable.Aviso;
+import firstone.serializable.Contrato;
+import firstone.serializable.HistorialIngresoSalida;
+import firstone.serializable.Notificacion;
 
 public class HistorialActivity extends Activity {
 
 	private static final String TAG	= "Historial de Activacion";
 	private static final int TAMANIO_TITULO=20;
 	
-	List<Historial> historiales;
 	String CI = "";
+	String nombre = "";
+	String apellido = "";
+	int id_entorno;
 	
 	public SharedPreferences preferences;
 	public SharedPreferences.Editor editor;
@@ -40,14 +54,35 @@ public class HistorialActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
         
+        iniciarServicio();
+        
         Bundle b = getIntent().getExtras();
         CI = b.getString("ci");
-        
+        nombre = b.getString("nombre");
+        apellido = b.getString("apellido");
+        id_entorno = Integer.parseInt(b.getString("id_entorno"));
+        Log.i(TAG,"ID_ENTORNO :" +id_entorno);
         preferences = this.getSharedPreferences(SettingsActivity.PREF_KEY, MODE_PRIVATE);
 		editor = preferences.edit();
         
-        cargarListaHistoriales();
+        
         InitializeComponent();
+    }
+    
+    private void iniciarServicio()
+    {
+    	boolean servicio_run = false;
+    	ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+	    for (RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+	        if ("firstone.identi_four.movil.service.Servicio".equals(service.service.getClassName())) {
+	            servicio_run = true;
+	        }
+	    }
+	    
+	    if (!servicio_run)
+	    	startService(new Intent(this,Servicio.class));
+//	    	stopService(new Intent(this,Servicio.class));
+	    
     }
     
     private void InitializeComponent()
@@ -55,7 +90,7 @@ public class HistorialActivity extends Activity {
     	tl = (TableLayout)findViewById(R.id.historial_tabla);
     }
     
-    private void cargarTabla()
+    private void cargarTabla(List<HistorialIngresoSalida> historiales)
     {
     	tl.removeAllViews();
     	TextView tx = new TextView(this), tx2 = new TextView(this), tx3 = new TextView(this), tx4 = new TextView(this), tx5 = new TextView(this);
@@ -64,36 +99,40 @@ public class HistorialActivity extends Activity {
 			TableRow tr = new TableRow(this);
 			tr.setId(i+1);
 			
-			tx.setText(historiales.get(i).getFechaHora().toString());
+			tx = new TextView(this);
+			tx.setText(historiales.get(i).getPlaca());
 			tx.setClickable(false);
 			tx.setPadding(0, 0, 12,0);
 			tx.setTextSize(17);
 			
-			tx2.setText(historiales.get(i).getPlaca());
+			tx2 = new TextView(this);
+			if ("INGRESO".equalsIgnoreCase(historiales.get(i).getTipo()))
+				tx2.setText("Ingreso");
+			else
+				tx2.setText("Salida");
 			tx2.setClickable(false);
 			tx2.setPadding(0, 0, 12,0);
 			tx2.setTextSize(17);
 			
-			tx3.setText(historiales.get(i).getAccion());
+			tx3 = new TextView(this);
+			tx3.setText(historiales.get(i).getTranca());
 			tx3.setClickable(false);
 			tx3.setPadding(0, 0, 12,0);
 			tx3.setTextSize(17);
 			
-			tx4.setText(historiales.get(i).getTranca());
+			tx4 = new TextView(this);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			String cad = sdf.format(new Date(historiales.get(i).getFecha_hora()));
+			tx4.setText(cad);
 			tx4.setClickable(false);
 			tx4.setPadding(0, 0, 12,0);
 			tx4.setTextSize(17);
 			
-			tx5.setText(historiales.get(i).getArea());
-			tx5.setClickable(false);
-			tx5.setPadding(0, 0, 12,0);
-			tx5.setTextSize(17);
 			
 			tr.addView(tx);
 			tr.addView(tx2);
 			tr.addView(tx3);
 			tr.addView(tx4);
-			tr.addView(tx5);
 			
 			tl.addView(tr);
 		}
@@ -106,36 +145,31 @@ public class HistorialActivity extends Activity {
     	tr.setId(0);
     	
     	TextView tx = new TextView(this);
-    	tx.setText("Fecha Hora");
+    	tx.setText("PLACA");
     	tx.setClickable(false);
     	tx.setTextSize(TAMANIO_TITULO);
     	
     	TextView tx2 = new TextView(this);
-    	tx2.setText("Placa");
+    	tx2.setText("ACCION");
     	tx2.setClickable(false);
     	tx2.setTextSize(TAMANIO_TITULO);
     	
     	TextView tx3 = new TextView(this);
-    	tx3.setText("Accion");
+    	tx3.setText("TRANCA");
     	tx3.setClickable(false);
     	tx3.setTextSize(TAMANIO_TITULO);
     	
     	TextView tx4 = new TextView(this);
-    	tx4.setText("Tranca");
+    	tx4.setText("FECHA HORA");
     	tx4.setClickable(false);
     	tx4.setTextSize(TAMANIO_TITULO);
     	
-    	TextView tx5 = new TextView(this);
-    	tx5.setText("Area");
-    	tx5.setClickable(false);
-    	tx5.setTextSize(TAMANIO_TITULO);
     	
-    	tr.setBackgroundColor(Color.RED);
+    	tr.setBackgroundColor(Color.rgb(132, 195, 255));
     	tr.addView(tx);
     	tr.addView(tx2);
     	tr.addView(tx3);
     	tr.addView(tx4);
-    	tr.addView(tx5);
     	
     	tl.addView(tr);
     }
@@ -157,11 +191,16 @@ public class HistorialActivity extends Activity {
 			break;
 		case R.id.menu_settings:
 //			i = new Intent(this,SettingsActivity.class);
-			i = new Intent(this,ServiceTestActivity.class);
+			i = new Intent(this,SettingsActivity.class);
 			break;
 		case R.id.menu_salir:
-			editor.putString(SettingsActivity.USER_KEY, "");
+			editor.putString(SettingsActivity.PROPIETARIO_CI, "");
+			editor.putString(SettingsActivity.PROPIETARIO_NOMBRE, "");
+			editor.putString(SettingsActivity.PROPIETARIO_APELLIDO, "");
+			editor.putString(SettingsActivity.PROPIETARIO_LICENCIA, "");
 			editor.commit();
+			
+			stopService(new Intent(this,Servicio.class));
 			
 			i = new Intent(this,MainActivity.class);
 			i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -170,55 +209,44 @@ public class HistorialActivity extends Activity {
 			break;
 		}
     	i.putExtra("ci", CI);
+    	i.putExtra("nombre", nombre);
+    	i.putExtra("apellido", apellido);
+    	Log.d(TAG,"id_entornooo : " + id_entorno);
+    	i.putExtra("id_entorno", id_entorno);
+    	
 		startActivity(i);
 		return super.onMenuItemSelected(featureId, item);
 	}
 
-
-	private void cargarListaHistoriales()
-    {
-    	historiales = new ArrayList<Historial>();
-    	Historial h1 = new Historial();
-    	Historial h2 = new Historial();
-    	Historial h3 = new Historial();
-    	
-    	h1.setAccion("Ingreso");
-    	h1.setArea("Campus");
-    	h1.setFechaHora(new Date());
-    	h1.setPlaca("123ABC");
-    	h1.setTranca("Noroeste");
-    	
-    	h2.setAccion("Salida");
-    	h2.setArea("Campus");
-    	h2.setFechaHora(new Date());
-    	h2.setPlaca("123ABC");
-    	h2.setTranca("Sur");
-    	
-    	h3.setAccion("Ingreso");
-    	h3.setArea("Modulos");
-    	h3.setFechaHora(new Date());
-    	h3.setPlaca("123ABC");
-    	h3.setTranca("Norte");
-    	
-    	historiales.add(h1);
-    	historiales.add(h2);
-    	historiales.add(h3);
-    }
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+            case Accion.HISTORIALES:
+            	mostrarHistoriales(  (List<HistorialIngresoSalida>)msg.obj  );
+            break;
+            }
+        }
+    };
+    
+    private void mostrarHistoriales(List<HistorialIngresoSalida> lista) {
+    	Log.i(TAG, "Mostrar Historiales");
+    	cargarTabla(lista);
+//		for (HistorialIngresoSalida h : lista)
+//		{
+//			Log.i(TAG, "TIPO : " + h.getTipo() + "    PLACA : " + h.getPlaca());
+//		}
+	}
     
     public void onActualizar(View ss)
     {
+    	Servicio.ihandler = mHandler;
+		Contrato contrato = new Contrato();
+		contrato.setAccion(Accion.HISTORIALES);
+		contrato.setContenido(null);
+		Servicio.icore.enviar(contrato);
+    	
     	Log.i(TAG, "["+CI+"] Actualizando ...");
-    	
-    	Historial h3 = new Historial();
-    	
-    	h3.setAccion("Ingreso");
-    	h3.setArea("Modulos");
-    	h3.setFechaHora(new Date());
-    	h3.setPlaca("4321BCA");
-    	h3.setTranca("Sur");
-    	
-    	historiales.add(h3);
-    	cargarTabla();
     }
     
 }

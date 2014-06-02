@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Toast;
 
 public class ServiceTestActivity extends Activity{
-
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

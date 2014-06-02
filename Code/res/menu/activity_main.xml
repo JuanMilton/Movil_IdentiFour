@@ -9,7 +9,7 @@
         android:id="@+id/menu_alarma"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="Alarmas"/>
+        android:title="Avisos y Alarmas"/>
 	<item
         android:id="@+id/menu_salir"
         android:orderInCategory="100"

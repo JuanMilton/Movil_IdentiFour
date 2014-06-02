@@ -4,15 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onAlertar"
-        android:text="Alertar" />
-
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
@@ -28,47 +19,107 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/checkBox2"
-            android:text="Lanzar Alarma"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:text="Avisos"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <RadioButton
             android:id="@+id/alarma_rb_cerrar_trancas_en_esta_area"
             android:layout_width="319dp"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Cerrar Trancas en esta area" />
+            android:text="Todos" />
 
         <RadioButton
             android:id="@+id/alarma_rb_cerrar_todas_trancas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cerrar todas las Trancas" />
+            android:text="Guardias" />
 
         <RadioButton
             android:id="@+id/alarma_rb_me_atacaron"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Me agredieron o asaltaron" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:orientation="horizontal" >
-
-            <RadioButton
-                android:id="@+id/alarma_rb_otro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:id="@+id/alarma_ed_otro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Otro problema" />
-        </LinearLayout>
+            android:text="Propietarios" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1"
+        android:text="Mensaje:"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/text_mensaje_aviso_alarma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/linearLayout1"
+        android:layout_below="@+id/textView1"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:onClick="onVerde"
+        android:text="Lanzar Alerta Verde" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:onClick="onAmarillo"
+        android:text="Lanzar Alerta Amarilla" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/button3"
+        android:onClick="onRojo"
+        android:text="Lanzar Alerta Roja" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button4"
+        android:layout_alignParentLeft="true"
+        android:text="Alertas"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/text_mensaje_aviso_alarma"
+        android:layout_below="@+id/text_mensaje_aviso_alarma"
+        android:onClick="onAlertar"
+        android:text="Enviar" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/button1"
+        android:layout_below="@+id/button1"
+        android:onClick="onVerAvisos"
+        android:text="Ver Avisos" />
 
 </RelativeLayout>

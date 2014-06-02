@@ -8,6 +8,9 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.INTERNET"/>
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -22,7 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="firstone.identi_four.movil.presentacion.HistorialActivity"></activity>
+        <activity android:name="firstone.identi_four.movil.presentacion.AvisosActivity"  android:screenOrientation="landscape"></activity>
+        <activity android:name="firstone.identi_four.movil.presentacion.NotificacionActivity"></activity>
+        <activity android:name="firstone.identi_four.movil.presentacion.AlarmaLlegoActivity"></activity>
+        <activity android:name="firstone.identi_four.movil.presentacion.AvisoActivity"></activity>
+        <activity android:name="firstone.identi_four.movil.presentacion.HistorialActivity" android:screenOrientation="portrait"></activity>
         <activity android:name="firstone.identi_four.movil.presentacion.AlarmaActivity"></activity>
         <activity android:name="firstone.identi_four.movil.presentacion.SettingsActivity"></activity>
         <activity android:name="firstone.identi_four.movil.service.ServiceTestActivity"></activity>
