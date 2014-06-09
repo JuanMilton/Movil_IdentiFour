@@ -3,6 +3,7 @@ package firstone.identi_four.negocio;
 import java.io.IOException;
 import java.util.List;
 
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
 
@@ -11,6 +12,7 @@ import com.firstonesoft.client.event.EventClient;
 import com.firstonesoft.client.util.ObjectUtil;
 
 import firstone.identi_four.ccs.Accion;
+import firstone.identi_four.movil.presentacion.SettingsActivity;
 import firstone.serializable.Alarma;
 import firstone.serializable.Aviso;
 import firstone.serializable.Contrato;
@@ -23,16 +25,20 @@ public class InterfazCoreNegocio implements EventClient {
 	private static final String TAG = "INTERFAZ_CORE";
 	
 	Client cliente;
-	public String 	IP 		= "192.168.1.102";
-	public int		PORT	= 4321;
+//	public String 	IP 		= "192.168.1.102";
+//	public int		PORT	= 4321;
 	
 	Propietario propietario;
 	Handler handler;
 	
-	public InterfazCoreNegocio(final Propietario propietario, Handler handler)
+	
+	
+	public InterfazCoreNegocio(final Propietario propietario, Handler handler, String IP, int PORT)
 	{
 		this.handler = handler;
 		this.propietario = propietario;
+		
+		
 		
 		cliente = new Client(IP, PORT);
         cliente.setEventClient(this);
@@ -42,12 +48,18 @@ public class InterfazCoreNegocio implements EventClient {
 			public void run() {
 				try{
 					cliente.connectOpened(propietario.getCi(), propietario);
+					enviarMensajeConectado();
 				} catch (IOException ex) {
 		            Log.e(TAG,"No se pudo conectar",ex);
 		        }
 			}
 		});
     	t.start();
+	}
+	
+	private void enviarMensajeConectado()
+	{
+		this.handler.obtainMessage(150).sendToTarget();
 	}
 	
 	private void llegoAviso(byte[] contenido)

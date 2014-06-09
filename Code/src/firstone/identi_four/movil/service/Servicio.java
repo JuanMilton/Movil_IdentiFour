@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 public class Servicio extends Service {
@@ -62,7 +63,8 @@ public class Servicio extends Service {
 		propietario.setApellidos(preferences.getString(SettingsActivity.PROPIETARIO_APELLIDO, ""));
 		propietario.setNro_licencia(preferences.getString(SettingsActivity.PROPIETARIO_LICENCIA, ""));
         
-        icore = new InterfazCoreNegocio(propietario,mHandler);
+        icore = new InterfazCoreNegocio(propietario,mHandler, preferences.getString(SettingsActivity.CORE_IP, "192.168.1.102"),Integer.parseInt(preferences.getString(SettingsActivity.CORE_PORT,"4321")));
+        
         return START_STICKY;
     }
 	
@@ -95,6 +97,9 @@ public class Servicio extends Service {
             case Accion.HISTORIALES:
             	Servicio.ihandler.obtainMessage(Accion.HISTORIALES, msg.obj).sendToTarget();
             	break;
+            case 150:
+            	ihandler.obtainMessage(150).sendToTarget();
+            	break;
             }
         }
     };
@@ -106,7 +111,7 @@ public class Servicio extends Service {
 	    	NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 	                this).setAutoCancel(true)
 	                .setContentTitle("IdentiFour")
-	                .setSmallIcon(R.drawable.ic_launcher)
+	                .setSmallIcon(R.drawable.logo_movil)
 	                .setContentText(aviso.getFrom() + " : " + aviso.getMensaje());
 	        
 	        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
@@ -142,7 +147,7 @@ public class Servicio extends Service {
 	    	NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
 	                this).setAutoCancel(true)
 	                .setContentTitle("IdentiFour")
-	                .setSmallIcon(R.drawable.ic_launcher)
+	                .setSmallIcon(R.drawable.logo_movil)
 	                .setContentText(alarma.getEmisor() + " : " + alarma.getPrioridad());
 	        
 	        
@@ -204,7 +209,7 @@ public class Servicio extends Service {
 			});
 	    	th.start();
 	    	
-	    	NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setAutoCancel(true).setContentTitle("IdentiFour").setSmallIcon(R.drawable.ic_launcher).setContentText(notificacion.getCi() + " : " + notificacion.getPlaca());
+	    	NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this).setAutoCancel(true).setContentTitle("IdentiFour").setSmallIcon(R.drawable.logo_movil).setContentText(notificacion.getCi() + " : " + notificacion.getPlaca());
 	        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 	        Intent resultIntent = new Intent(this, NotificacionActivity.class);
 	        resultIntent.putExtra("ci", notificacion.getCi());

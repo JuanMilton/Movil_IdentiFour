@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/configuration_ed_ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="IP" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/configuration_ed_puerto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="PUERTO" />
+
+    <Button
+        android:id="@+id/configuration_bt_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="eventSave"
+        android:text="Save" />
+
+</LinearLayout>

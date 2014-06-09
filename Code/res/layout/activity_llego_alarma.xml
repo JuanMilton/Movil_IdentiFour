@@ -5,23 +5,10 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="De:"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/text_de_alarma"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nivel de la Alarma:"
+        android:layout_marginBottom="20dp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -34,6 +21,7 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Recomendaciones:"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -43,13 +31,5 @@
         android:layout_height="wrap_content"
         android:layout_weight="1.04"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:onClick="onCerrar"
-        android:text="Cerrar" />
 
 </LinearLayout>

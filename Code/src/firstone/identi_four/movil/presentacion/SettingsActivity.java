@@ -21,6 +21,9 @@ public class SettingsActivity extends Activity{
 	public static final String NOTI_CUANDO_ENVIO_AVISOS = "ncea";
 	public static final String NOTI_CUANDO_ENVIO_ALARMAS = "nceal";
 	
+	public static final String CORE_IP	 = "cip";
+	public static final String CORE_PORT = "cport";
+	
 	public SharedPreferences preferences;
 	public SharedPreferences.Editor editor;
 	

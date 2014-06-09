@@ -8,6 +8,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningServiceInfo;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -18,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -45,6 +47,8 @@ public class HistorialActivity extends Activity {
 	public SharedPreferences preferences;
 	public SharedPreferences.Editor editor;
 	
+	ProgressDialog progress;
+	
 	// begin_region
 		TableLayout tl;
 	// end_region
@@ -54,6 +58,7 @@ public class HistorialActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
         
+        Servicio.ihandler = mHandler;
         iniciarServicio();
         
         Bundle b = getIntent().getExtras();
@@ -80,7 +85,11 @@ public class HistorialActivity extends Activity {
 	    }
 	    
 	    if (!servicio_run)
+	    {
 	    	startService(new Intent(this,Servicio.class));
+	    }else
+	    	onActualizar(null);
+	    
 //	    	stopService(new Intent(this,Servicio.class));
 	    
     }
@@ -89,6 +98,8 @@ public class HistorialActivity extends Activity {
     {
     	tl = (TableLayout)findViewById(R.id.historial_tabla);
     }
+    
+    int contador=0;
     
     private void cargarTabla(List<HistorialIngresoSalida> historiales)
     {
@@ -133,10 +144,16 @@ public class HistorialActivity extends Activity {
 			tr.addView(tx2);
 			tr.addView(tx3);
 			tr.addView(tx4);
-			
+
 			tl.addView(tr);
 		}
     	tl.requestLayout();
+    }
+    
+    private void lanzarConfiguracion()
+    {
+    	Intent i = new Intent(this,ConfigurationActivity.class);
+    	startActivity(i);
     }
     
     private void setHeader(TableLayout tl)
@@ -170,6 +187,19 @@ public class HistorialActivity extends Activity {
     	tr.addView(tx2);
     	tr.addView(tx3);
     	tr.addView(tx4);
+    	
+    	tr.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				contador++;
+				if (contador > 5)
+				{
+					lanzarConfiguracion();
+					contador = 0;
+				}
+			}
+		});
     	
     	tl.addView(tr);
     }
@@ -225,6 +255,8 @@ public class HistorialActivity extends Activity {
             case Accion.HISTORIALES:
             	mostrarHistoriales(  (List<HistorialIngresoSalida>)msg.obj  );
             break;
+            case 150:
+            	onActualizar(null);
             }
         }
     };
@@ -240,13 +272,34 @@ public class HistorialActivity extends Activity {
     
     public void onActualizar(View ss)
     {
-    	Servicio.ihandler = mHandler;
-		Contrato contrato = new Contrato();
-		contrato.setAccion(Accion.HISTORIALES);
-		contrato.setContenido(null);
-		Servicio.icore.enviar(contrato);
+    	progress = ProgressDialog.show(this, "dialog title",
+      		  "dialog message", true);
+
+		new Thread(new Runnable() {
+		  @Override
+		  public void run()
+		  {
+				Contrato contrato = new Contrato();
+				contrato.setAccion(Accion.HISTORIALES);
+				contrato.setContenido(null);
+				Servicio.icore.enviar(contrato);
+		    	
+		    	Log.i(TAG, "["+CI+"] Actualizando ...");
+			  
+		    runOnUiThread(new Runnable() {
+		      @Override
+		      public void run()
+		      {
+		    	  
+		        progress.dismiss();
+		        
+		      }
+		    });
+		  }
+		}).start();
+
     	
-    	Log.i(TAG, "["+CI+"] Actualizando ...");
+    	
     }
     
 }

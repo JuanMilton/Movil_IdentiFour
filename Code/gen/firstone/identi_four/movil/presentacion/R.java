@@ -12,6 +12,7 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int logo_movil=0x7f020001;
     }
     public static final class id {
         public static final int TextView01=0x7f070002;
@@ -24,41 +25,45 @@ public final class R {
         public static final int button3=0x7f07000a;
         public static final int button4=0x7f07000b;
         public static final int button5=0x7f07000e;
-        public static final int ch_enviar_alarmas=0x7f07001e;
-        public static final int ch_enviar_avisos=0x7f07001d;
-        public static final int ch_vehiculo_ingresa=0x7f07001b;
-        public static final int ch_vehiculo_sale=0x7f07001c;
+        public static final int ch_enviar_alarmas=0x7f070021;
+        public static final int ch_enviar_avisos=0x7f070020;
+        public static final int ch_vehiculo_ingresa=0x7f07001e;
+        public static final int ch_vehiculo_sale=0x7f07001f;
         public static final int checkBox2=0x7f070003;
-        public static final int editText1=0x7f07001a;
-        public static final int historial_actualizar=0x7f070010;
-        public static final int historial_tabla=0x7f070011;
+        public static final int configuration_bt_save=0x7f070012;
+        public static final int configuration_ed_ip=0x7f070010;
+        public static final int configuration_ed_puerto=0x7f070011;
+        public static final int editText1=0x7f07001d;
+        public static final int historial_actualizar=0x7f070013;
+        public static final int historial_tabla=0x7f070014;
+        public static final int imageView1=0x7f070018;
         public static final int linearLayout1=0x7f070000;
-        public static final int main_ed_ci=0x7f070019;
-        public static final int menu_alarma=0x7f070020;
-        public static final int menu_salir=0x7f070021;
-        public static final int menu_settings=0x7f07001f;
+        public static final int main_ed_ci=0x7f07001c;
+        public static final int menu_alarma=0x7f070022;
+        public static final int menu_salir=0x7f070024;
+        public static final int menu_settings=0x7f070023;
         public static final int radioGroup1=0x7f070001;
         public static final int textView1=0x7f070007;
         public static final int textView2=0x7f07000c;
-        public static final int textView5=0x7f070013;
-        public static final int text_de=0x7f070016;
-        public static final int text_de_alarma=0x7f070012;
-        public static final int text_mensaje=0x7f070017;
-        public static final int text_mensaje_alarma=0x7f070014;
+        public static final int text_de=0x7f070019;
+        public static final int text_de_alarma=0x7f070015;
+        public static final int text_mensaje=0x7f07001a;
+        public static final int text_mensaje_alarma=0x7f070016;
         public static final int text_mensaje_aviso_alarma=0x7f070008;
-        public static final int text_precausiones_alarma=0x7f070015;
-        public static final int text_sms_notificacion=0x7f070018;
+        public static final int text_precausiones_alarma=0x7f070017;
+        public static final int text_sms_notificacion=0x7f07001b;
     }
     public static final class layout {
         public static final int activity_alarma=0x7f030000;
         public static final int activity_avisos=0x7f030001;
-        public static final int activity_historial=0x7f030002;
-        public static final int activity_llego_alarma=0x7f030003;
-        public static final int activity_llego_aviso=0x7f030004;
-        public static final int activity_llego_notificacion=0x7f030005;
-        public static final int activity_main=0x7f030006;
-        public static final int activity_service_test=0x7f030007;
-        public static final int activity_settings=0x7f030008;
+        public static final int activity_configuration=0x7f030002;
+        public static final int activity_historial=0x7f030003;
+        public static final int activity_llego_alarma=0x7f030004;
+        public static final int activity_llego_aviso=0x7f030005;
+        public static final int activity_llego_notificacion=0x7f030006;
+        public static final int activity_main=0x7f030007;
+        public static final int activity_service_test=0x7f030008;
+        public static final int activity_settings=0x7f030009;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;

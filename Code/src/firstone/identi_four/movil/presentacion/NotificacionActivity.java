@@ -2,10 +2,13 @@ package firstone.identi_four.movil.presentacion;
 
 import java.io.UnsupportedEncodingException;
 
+
 import firstone.identi_four.ccs.Accion;
 import firstone.identi_four.movil.service.Servicio;
 import firstone.serializable.Contrato;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +25,6 @@ public class NotificacionActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_llego_notificacion);
-		
 		preferences = this.getSharedPreferences(SettingsActivity.PREF_KEY, MODE_PRIVATE);
 		editor = preferences.edit();
 		

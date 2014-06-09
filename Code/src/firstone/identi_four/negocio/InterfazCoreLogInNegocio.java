@@ -21,14 +21,14 @@ public class InterfazCoreLogInNegocio implements EventClient {
 	private static final String TAG 		= "INTERFAZ_LOGIN_CORE";
 	
 	Client cliente;
-	public String 	IP 		= "192.168.1.102";
-	public int		PORT	= 4321;
+//	public String 	IP 		= "192.168.1.102";
+//	public int		PORT	= 4321;
 	
 	
 	Handler handler;
 	
 	
-	public InterfazCoreLogInNegocio(Handler handler, final Context context)
+	public InterfazCoreLogInNegocio(Handler handler, final Context context, String IP, int PORT)
 	{
 		this.handler = handler;
 		

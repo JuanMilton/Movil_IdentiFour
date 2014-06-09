@@ -13,7 +13,7 @@
     
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/logo_movil"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -25,13 +25,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="firstone.identi_four.movil.presentacion.ConfigurationActivity"  android:screenOrientation="portrait"></activity>
         <activity android:name="firstone.identi_four.movil.presentacion.AvisosActivity"  android:screenOrientation="landscape"></activity>
-        <activity android:name="firstone.identi_four.movil.presentacion.NotificacionActivity"></activity>
-        <activity android:name="firstone.identi_four.movil.presentacion.AlarmaLlegoActivity"></activity>
-        <activity android:name="firstone.identi_four.movil.presentacion.AvisoActivity"></activity>
-        <activity android:name="firstone.identi_four.movil.presentacion.HistorialActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name="firstone.identi_four.movil.presentacion.NotificacionActivity" android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar"></activity>
+        <activity android:name="firstone.identi_four.movil.presentacion.AlarmaLlegoActivity" android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar"></activity>
+        <activity android:name="firstone.identi_four.movil.presentacion.AvisoActivity" android:theme="@android:style/Theme.DeviceDefault.Dialog.NoActionBar" ></activity>
+        <activity android:name="firstone.identi_four.movil.presentacion.HistorialActivity" android:screenOrientation="landscape"></activity>
         <activity android:name="firstone.identi_four.movil.presentacion.AlarmaActivity"></activity>
-        <activity android:name="firstone.identi_four.movil.presentacion.SettingsActivity"></activity>
+        <activity android:name="firstone.identi_four.movil.presentacion.SettingsActivity" android:screenOrientation="portrait"></activity>
         <activity android:name="firstone.identi_four.movil.service.ServiceTestActivity"></activity>
         <service android:name="firstone.identi_four.movil.service.Servicio" />
     </application>

@@ -49,7 +49,8 @@ public class MainActivity extends Activity {
     		startActivity(i);
 		}else
 		{
-			ilogin = new InterfazCoreLogInNegocio(this.mHandler, this);
+			ilogin = new InterfazCoreLogInNegocio(this.mHandler, this, preferences.getString(SettingsActivity.CORE_IP, "192.168.1.102"),
+					Integer.parseInt(preferences.getString(SettingsActivity.CORE_PORT, "4321")));
 			
 		}
         
@@ -92,7 +93,7 @@ public class MainActivity extends Activity {
     };
     
 	public void autenticacionPropietario(Propietario propietario) {
-		
+		Log.d("LOGIN","Se ha autenticado");
 		editor.putString(SettingsActivity.PROPIETARIO_CI, propietario.getCi());
 		editor.putString(SettingsActivity.PROPIETARIO_NOMBRE, propietario.getNombres());
 		editor.putString(SettingsActivity.PROPIETARIO_APELLIDO, propietario.getApellidos());

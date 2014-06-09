@@ -2,28 +2,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+     >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.93" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="57dp"
+            android:layout_height="40dp"
+            android:src="@drawable/logo_movil" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.96"
+            android:text="IdentiFour"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="30sp" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/text_sms_notificacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1.01"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="39.13"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/button2"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onAceptar"
-        android:text="Aceptar" />
+        android:layout_height="wrap_content" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:onClick="onDenegar"
-        android:text="Denegar Salida" />
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1.52"
+            android:onClick="onDenegar"
+            android:text="Denegar Salida" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="154dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:onClick="onAceptar"
+            android:text="Aceptar" />
+
+    </LinearLayout>
 
 </LinearLayout>
